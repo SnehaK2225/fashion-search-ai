@@ -6,6 +6,7 @@ import torch
 import re
 from sentence_transformers import SentenceTransformer
 from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 
 # -------------------------------------------------
 # PAGE CONFIG
@@ -85,14 +86,18 @@ index = load_index(embeddings)
 
 @st.cache_resource
 def load_generator():
+    model_name = "google/flan-t5-small"
+
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
     generator = pipeline(
         "text2text-generation",
-        model="google/flan-t5-small",
-        device=-1  # CPU for Streamlit Cloud
+        model=model,
+        tokenizer=tokenizer
     )
-    return generator
 
-generator = load_generator()
+    return generator
 
 # -------------------------------------------------
 # QUERY UNDERSTANDING
