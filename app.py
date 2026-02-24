@@ -21,7 +21,7 @@ st.write("Search fashion products using natural language.")
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("cleaned_fashion.csv")
+df = pd.read_csv("fashion_small.csv")
 
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df["avg_rating"] = pd.to_numeric(df["avg_rating"], errors="coerce")
