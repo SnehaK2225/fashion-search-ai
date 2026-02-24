@@ -21,13 +21,12 @@ st.write("Search fashion products using natural language.")
 
 @st.cache_data
 def load_data():
-df = pd.read_csv("fashion_small.csv")
-
+    df = pd.read_csv("fashion_small.csv")
+    
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df["avg_rating"] = pd.to_numeric(df["avg_rating"], errors="coerce")
     df["colour"] = df["colour"].astype(str).str.lower()
 
-    # Create combined_text inside app
     df["combined_text"] = (
         df["name"].astype(str) + " " +
         df["brand"].astype(str) + " " +
